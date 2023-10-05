@@ -1,10 +1,11 @@
 package com.cydeo.service;
 
-import com.cydeo.entity.Role;
+import com.cydeo.dto.RoleDTO;
 
 import java.util.List;
 
-public interface RoleService {
+public interface RoleService extends CrudService<RoleDTO, Long> {
 
-    public List<Role> listAllRoles();
+    RoleDTO myLogic(RoleDTO roleDTO, String str);
+
 }
