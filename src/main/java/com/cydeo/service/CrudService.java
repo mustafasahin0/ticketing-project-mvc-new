@@ -9,4 +9,6 @@ public interface CrudService<T, ID> {
     List<T> findAll();
 
     T findById(ID id);
+
+    void deleteById(ID id);
 }
