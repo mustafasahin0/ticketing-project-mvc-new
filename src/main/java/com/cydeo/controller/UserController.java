@@ -18,7 +18,6 @@ public class UserController {
         model.addAttribute("user", new UserDTO());
         model.addAttribute("roles", new UserDTO()); // bring me all roles from DB
 
-
         return "user/create";
     }
 }
