@@ -8,10 +8,7 @@ import com.cydeo.service.UserService;
 import org.springframework.context.support.BeanDefinitionDsl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/user")
@@ -41,5 +38,15 @@ public class UserController {
         userService.save(userDTO);
 
         return "redirect:/user/create";
+    }
+
+    @GetMapping("/update/{username}")
+    public String editUser(@PathVariable String username, Model model) {
+        UserDTO user = userService.findById(username);
+
+        model.addAttribute("user", user);
+        model.addAttribute("roles", roleService.findAll());
+        model.addAttribute("users", userService.findAll());
+        return "/user/update";
     }
 }
