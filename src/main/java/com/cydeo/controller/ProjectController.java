@@ -9,6 +9,6 @@ public class ProjectController {
 
     @RequestMapping("/create")
     public String createProject() {
-        return "project/create";
+        return "/project/create";
     }
 }
