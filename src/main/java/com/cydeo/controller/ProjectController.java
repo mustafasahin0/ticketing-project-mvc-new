@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProjectController {
 
     @RequestMapping("/create")
-    public String projectCreate() {
+    public String createProject() {
         return "project/create";
     }
 }
