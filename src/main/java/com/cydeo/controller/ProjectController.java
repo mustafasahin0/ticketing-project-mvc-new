@@ -1,6 +1,7 @@
 package com.cydeo.controller;
 
 import com.cydeo.dto.ProjectDTO;
+import com.cydeo.enums.Status;
 import com.cydeo.service.ProjectService;
 import com.cydeo.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -37,13 +38,37 @@ public class ProjectController {
     }
 
     @GetMapping("/update/{projectCode}")
-    public String createProject(@PathVariable String projectCode, Model model) {
+    public String editProject(@PathVariable String projectCode, Model model) {
 
         model.addAttribute("project", projectService.findById(projectCode));
         model.addAttribute("projects", projectService.findAll());
         model.addAttribute("managers", userService.findAll());
 
         return "/project/update";
+    }
+
+    @PostMapping("/update")
+    public String updateProject(@ModelAttribute ProjectDTO projectDTO) {
+
+        projectService.save(projectDTO);
+
+        return "redirect:/project/create";
+    }
+
+    @GetMapping("/delete/{projectCode}")
+    public String updateProject(@PathVariable String projectCode) {
+
+        projectService.deleteById(projectCode);
+
+        return "redirect:/project/create";
+    }
+
+    @GetMapping("/complete/{projectCode}")
+    public String completeProject(@PathVariable String projectCode) {
+
+        projectService.findById(projectCode).setProjectStatus(Status.COMPLETE);
+
+        return "redirect:/project/create";
     }
 
 
