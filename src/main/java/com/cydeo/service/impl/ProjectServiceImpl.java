@@ -6,12 +6,15 @@ import com.cydeo.service.ProjectService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ProjectServiceImpl extends AbstractMapService<ProjectDTO, String> implements ProjectService {
     @Override
     public ProjectDTO save(ProjectDTO object) {
-        object.setProjectStatus(Status.OPEN);
+        if (Objects.isNull(object.getProjectStatus())) {
+            object.setProjectStatus(Status.OPEN);
+        }
         return super.save(object.getProjectCode(), object);
     }
 
@@ -33,5 +36,11 @@ public class ProjectServiceImpl extends AbstractMapService<ProjectDTO, String> i
     @Override
     public ProjectDTO findById(String id) {
         return super.findById(id);
+    }
+
+    @Override
+    public void complete(ProjectDTO projectDTO) {
+        projectDTO.setProjectStatus(Status.COMPLETE);
+        super.save(projectDTO.getProjectCode(), projectDTO);
     }
 }

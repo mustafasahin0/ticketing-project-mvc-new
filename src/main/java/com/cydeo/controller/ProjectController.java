@@ -56,7 +56,7 @@ public class ProjectController {
     }
 
     @GetMapping("/delete/{projectCode}")
-    public String updateProject(@PathVariable String projectCode) {
+    public String deleteProject(@PathVariable String projectCode) {
 
         projectService.deleteById(projectCode);
 
