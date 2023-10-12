@@ -49,7 +49,7 @@ public class ProjectController {
 
     @PostMapping("/update")
     public String updateProject(@ModelAttribute ProjectDTO projectDTO) {
-
+        projectService.findById(projectDTO.getProjectCode()).getProjectStatus();
         projectService.save(projectDTO);
 
         return "redirect:/project/create";
