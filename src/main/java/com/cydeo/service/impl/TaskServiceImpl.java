@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 public class TaskServiceImpl extends AbstractMapService<TaskDTO, Long> implements TaskService {
@@ -20,6 +21,9 @@ public class TaskServiceImpl extends AbstractMapService<TaskDTO, Long> implement
         }
         if(Objects.isNull(object.getAssignedDate())) {
             object.setAssignedDate(LocalDate.now());
+        }
+        if(Objects.isNull(object.getId())) {
+            object.setId(UUID.randomUUID().getMostSignificantBits());
         }
         return super.save(object.getId(), object);
     }
