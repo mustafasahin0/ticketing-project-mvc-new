@@ -125,13 +125,13 @@
                                             <tbody>
                                             <tr th:each="task : ${tasks}">
                                                 <td th:text="${task.project.projectName}"></td>
-                                                <td th:text="${task.taskDetail}"></td>
+                                                <td th:text="${task.taskSubject}"></td>
                                                 <td th:text="${task.assignedEmployee.firstName + ' ' + task.assignedEmployee.lastName}"></td>
                                                 <td th:text="${#temporals.format(task.assignedDate, 'MM.dd.YYYY')}"></td>
                                                 <td th:text="${task.taskStatus.value}"></td>
                                                 <td class="actions">
-                                                    <a href="#" class="btn btn-warning rounded-0">Update</a>
-                                                    <a href="#" class="btn btn-danger rounded-0">Delete</a>
+                                                    <a th:href="@{/task/update/{taskId}(taskId=${task.id})}" class="btn btn-warning rounded-0">Update</a>
+                                                    <a th:href="@{/task/delete/{taskId}(taskId=${task.id})}" class="btn btn-danger rounded-0">Delete</a>
                                                 </td>
                                             </tr>
                                             </tbody>
