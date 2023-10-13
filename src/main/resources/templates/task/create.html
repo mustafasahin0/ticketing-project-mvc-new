@@ -32,7 +32,7 @@
                                 <div class="panel-body">
 
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form th:action="@{task/create}" method="post" th:object="${task}">
+                                    <form th:action="@{/task/create}" method="post" th:object="${task}">
 
                                         <div class="row">
                                             <div class="col">
@@ -130,7 +130,7 @@
                                                 <td th:text="${#temporals.format(task.assignedDate, 'MM.dd.YYYY')}"></td>
                                                 <td th:text="${task.taskStatus.value}"></td>
                                                 <td class="actions">
-                                                    <a href="#" class="btn btn-warning rounded-0">Update</a>
+                                                    <a th:href="@{/task/update/{taskId}(taskId=${task.id})}" class="btn btn-warning rounded-0">Update</a>
                                                     <a href="#" class="btn btn-danger rounded-0">Delete</a>
                                                 </td>
                                             </tr>

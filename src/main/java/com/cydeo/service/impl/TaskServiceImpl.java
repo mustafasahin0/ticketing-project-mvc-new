@@ -1,17 +1,26 @@
 package com.cydeo.service.impl;
 
 import com.cydeo.dto.TaskDTO;
+import com.cydeo.enums.Status;
 import com.cydeo.service.TaskService;
 import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TaskServiceImpl extends AbstractMapService<TaskDTO, Long> implements TaskService {
 
     @Override
     public TaskDTO save(TaskDTO object) {
+        if (Objects.isNull(object.getTaskStatus())) {
+            object.setTaskStatus(Status.OPEN);
+        }
+        if(Objects.isNull(object.getAssignedDate())) {
+            object.setAssignedDate(LocalDate.now());
+        }
         return super.save(object.getId(), object);
     }
 
