@@ -2,15 +2,15 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="/fragments/head :: head"></head>
+<head th:replace="~{/fragments/head :: head}"></head>
 
 <body>
 
 <div class="dashboard-main-wrapper">
 
-    <div th:replace="/fragments/header :: header"></div>
+    <div th:replace="~{/fragments/header :: header}"></div>
 
-    <div th:replace="/fragments/left-sidebar :: left-sidebar"></div>
+    <div th:replace="~{/fragments/left-sidebar :: left-sidebar}"></div>
 
     <div class="dashboard-wrapper">
 
@@ -42,18 +42,21 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                            <tr th:each="project : ${projects}">
+                                                <td th:text="${project.projectCode}"></td>
+                                                <td th:text="${project.projectName}"></td>
+                                                <td th:text="${project.startDate + ' to ' + project.endDate}"></td>
+                                                <td th:text="${project.assignedManager.firstName + ' ' + project.assignedManager.lastName}"></td>
+                                                <td th:text="${project.unfinishedTaskCounts + '/' + project.completeTaskCounts}"></td>
+                                                <td th:text="${project.projectStatus.value}"></td>
                                                 <td>
-                                                    <!--Show this if the project can be completed-->
-                                                    <a class="btn btn-info rounded-0" href="#">Complete</a>
-                                                    <!--Show this if the project can not be completed-->
-                                                    <a class="btn btn-info rounded-0 disabled-button">Complete</a>
+                                                    <a th:if="${project.unfinishedTaskCounts == 0 && project.projectStatus.value != 'Completed'}"
+                                                       class="btn btn-info rounded-0"
+                                                       th:href="@{/project/manager/complete/{id}(id=${project.projectCode})}">Complete
+                                                    </a>
+                                                    <a th:if="${project.unfinishedTaskCounts > 0 || project.projectStatus.value == 'Completed'}"
+                                                       class="btn btn-info rounded-0 disabled-button">Complete
+                                                    </a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -73,11 +76,11 @@
 
     </div>
 
-    <div th:replace="/fragments/footer :: footer"></div>
+    <div th:replace="~{/fragments/footer :: footer}"></div>
 
 </div>
 
-<div th:replace="/fragments/javascript :: js"></div>
+<div th:replace="~{/fragments/javascript :: js}"></div>
 
 </body>
 
